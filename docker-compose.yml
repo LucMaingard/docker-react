@@ -1,0 +1,21 @@
+version: "3"
+services:
+  web:
+    build: 
+      # shows location of project files (just current dir, but can be nested, then only considers files in the stipulated dir)
+      context: .
+      # shows name of dockerfile to use
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
